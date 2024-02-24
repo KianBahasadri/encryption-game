@@ -14,3 +14,12 @@ scoring:
 2 points - produce code that can decrypt any data encrypted with the opponent's algorithm without ever finding the password
 1 point  - brute force the opponent's password
 ```
+
+## Resources
+good plaintext here: (https://www.gutenberg.org/)
+
+
+## Included Scripts
+#### alpha_text.py
+removes all non-alphabetic characters from a file, preserving whitespace. This can make analysis of an encrypted text easier
+

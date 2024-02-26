@@ -83,6 +83,10 @@ Unlike encryption there are only 2 inputs, the file to be decrypted and the key.
 ### Key Stretching
 Key stretching is performed just as before
 
+### Block Size
+The block size here is calculated the same as before, except it is also multiplied by the number of bytes used to store each element.  
+In simple terms, if there are 16 elements in each block, and each element is 2 bytes long, then each block should be 16*2 bytes long.  
+
 ### Reversing Effects of Matrix Multiplication
 To recap, we had a key matrix K and a plaintext matrix T. We did KT and now we have an encrypted matrix E. To go back to T, only given E and K, we need to do $K^{-1}E$.  
 Unfortunately, this poses quite a big problem for modern computers. $K^{-1}$ is calculated using the reciprocal of the determinant, which is a fraction. In short, $K^{-1}$ is full of floating point numbers.  

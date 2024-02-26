@@ -1,14 +1,23 @@
 """
 crypto_utils.py
-- get_file_path(default)
-- get_password(default)
-- stretch_key(key)
-- get_text(textfile_path)
+- get_passes(default): returns int
+- get_file_path(default): returns string
+- get_password(default): returns bytes
+- stretch_key(key): takes a bytes array, returns an array of size n^2, where n was the size of the input
+- get_text(textfile_path): returns bytes
 - write_buffer_with_name(buffer, name, ext): just give it the path of the input file and it will take care of the rest
 """
+
+def math_log2(x):
+  return x if x <= 2 else return math_log2(x/2)
+
 def get_passes(default):
   passes = input(f"How many passes? (Default: {default})\n--> ")
   passes = int(passes) if passes else default
+  if passes > 4:
+    print("this shit is not multithreaded buddy")
+  if passes > 9:
+    print("okay buddy, your funeral lmfao")
   return passes
 
 def get_file_path(default):
@@ -30,14 +39,14 @@ def get_password(default):
 def stretch_key(key):
   """
   key stretching algorithm:
-  split the 32 bit key into 4 separate bytes a, b, c, and d
+  rotate the key as many times as it is long, concat at each iteration
+  e.g. given a 4 byte key:
   create the new key by rotating and concatonating the bytes: abcd-dabc-cdab-bcda
-  thus you will be left with a key 4 times the original length
-  importantly: the 4x4 matrix will probably have a non-zero determinant
-  resulting key is 16 bytes or 128 bits
+  thus you will be left with a key n^2 times the original length
+  importantly: the matrix will probably have a non-zero determinant
   """
   new_key = bytes()
-  for i in range(4):
+  for i in range(len(key)):
     new_key += key
     key = key[-1].to_bytes() + key[:-1]
   return new_key

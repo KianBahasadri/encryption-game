@@ -1,21 +1,31 @@
 """
 matrix_utils.py
-- bytes_to_matrix(_bytes): Converts a bytes object of length 16 into a 4x4 matrix
-- matrix_to_bytes(mat): Converts a 4x4 matrix back into a bytes object
-- mat_mul(a, b): Multiplies two 4x4 matrices (a and b) together and returns the result
-- mat_inv(mat): Calculates the inverse of any size matrix
-- mat_det(mat): Calculates the determinant of any size matrix
+- bytes_to_matrix(_bytes, size=1): Converts bytes to a square matrix, where 'size' indicates the byte length of each number.
+- matrix_to_bytes(mat, size=1): Converts a square matrix back into bytes, with 'size' specifying the byte length of each number.
+- mat_mul(a, b): Performs multiplication of two square matrices.
+- undo_mat_mul(key_mat, enc_mat): Decrypts encrypted text by applying matrix multiplication's inverse operation using a key matrix and an encrypted matrix.
+- mat_adjoint(mat): Calculates the adjoint of a matrix.
+- mat_det(mat): Computes the determinant of a matrix.
+- mat_cofactor(mat, i, j): Determines the cofactor of an element in a matrix.
+- mat_transpose(mat): Transposes a matrix.
 """
 
-def bytes_to_matrix(_bytes, size=1):
-  """ size represents the number of bytes in a number """
-  matrix = [[], [], [], []]
-  for i in range(0, 16*size, size):
-    val = int.from_bytes(_bytes[i:i+1*size])
-    matrix[i//(4*size)].append(val)
+def bytes_to_matrix(_bytes, size):
+  """
+  size represents the number of bytes in a number
+  always expect size of _bytes to be a perfect square * size
+  matrix will be of size n*n
+  """
+  n = (len(_bytes) // size) ** 0.5
+  matrix = [[0]*n for _ in range(n)]
+  for i in range(0, n*size, size):
+    for j in range(0, n*size, size):
+      index = i*n*size + j*size
+      val = int.from_bytes(_bytes[index:index+size])
+      matrix[i][j] = val
   return matrix
 
-def matrix_to_bytes(mat, size=1):
+def matrix_to_bytes(mat, size):
   """ size represents the number of bytes in a number """
   _bytes = bytes()
   for row in mat:
@@ -25,11 +35,11 @@ def matrix_to_bytes(mat, size=1):
 
 def mat_mul(a, b):
   result = []
-  for i in range(4):
+  for i in range(len(a)):
     result.append([])
-    for j in range(4):
+    for j in range(len(a)):
       result[i].append(0)
-      for k in range(4):
+      for k in range(len(a)):
         result[i][j] += a[i][k] * b[k][j]
   return result
 

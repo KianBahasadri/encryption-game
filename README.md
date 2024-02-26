@@ -45,7 +45,10 @@ In the first game, I decided to make an encryption algorithm that uses matrix mu
 Here is how a file is encrypted, in GREAT DETAIL!!!
 ## Encryption
 ### Inputs
-This algorithm takes 3 inputs, the file to be encrypted, the password or key, and the number of passes of encryption to be performed.
+This algorithm takes 3 inputs, the file to be encrypted, the password/key, and the number of passes of encryption to be performed.
+The output is an encrypted file, the size in bytes can be calculated using the following formula:
+size(input_file) * ceil(log_2(255^(passes+1) * size(key)^passes) / 8)  
+If this looks funky see the section [Matrix To Bytes Conversion](#matrix-to-bytes-conversion)
 ### Key Stretching
 First the key is taken from the user and passed through a key stretching algorithm. This algorithm takes a key of length n, and returns a key of length n^2.
 The algorithm rotates the key as many times as it is long, and concatonates the current string at each iteration.  
@@ -67,7 +70,11 @@ passes = 2: (key_matrix * (key_matrix * (text_matrix)))
 etc.
 ```
 The resulting matrix is then converted to bytes and appended to the file containing the encrypted data
-## Matrix To Bytes Conversion
+### Matrix To Bytes Conversion
+This part is a little bit tricky. The problem is that the value of a single byte can only go up to 255, but given a high number of passes, element values can reach the millions.
+The way to solve this problem is by using more bytes to store each value. My solution to choosing the number of bytes to use is to make a generous guess.
+The highest theoretical value that can be reached, is 255^(passes+1) * sqrt(blocksize)^passes. So thats scaling preeety fast.
+So, to choose the number of bytes per element, I just calculate that value and find n for 2^(8*n) > than that value. This is not efficient but it's safe, so who cares I do it :D
 
+## Decryption
 
-##

@@ -19,7 +19,8 @@ crypto_utils.py
 """
 
 def main():
-  PASSES = 0
+  PASSES = get_passes(1)
+
   text_path = get_file_path(default='test.txt')
   text = get_text(text_path)
   padding = 16 - len(text) % 16

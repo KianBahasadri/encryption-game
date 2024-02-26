@@ -6,6 +6,10 @@ crypto_utils.py
 - get_text(textfile_path)
 - write_buffer_with_name(buffer, name, ext): just give it the path of the input file and it will take care of the rest
 """
+def get_passes(default):
+  passes = input(f"How many passes? (Default: {default})\n--> ")
+  passes = int(passes) if passes else default
+  return passes
 
 def get_file_path(default):
   from pathlib import Path

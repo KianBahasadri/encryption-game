@@ -50,10 +50,10 @@ def undo_mat_mul(key_mat, enc_mat):
   """
   adj_key_mat = mat_adjoint(key_mat)
   new_mat = mat_mul(adj_key_mat, enc_mat)
-  det = mat_det(mat)
-  for i in range(len(mat)):
-    for j in range(len(mat)):
-      new_mat[j][i] = new_mat // det # should be a whole number anyways
+  det = mat_det(key_mat)
+  for i in range(len(key_mat)):
+    for j in range(len(key_mat)):
+      new_mat[i][j] //=  det # should be a whole number anyways
   return new_mat
 
 def mat_adjoint(mat):

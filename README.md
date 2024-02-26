@@ -101,5 +101,12 @@ and thats how we get back the original matrix :)
 ```
 So that's how the algorithm is able to do inverse matrix multiplication without dealing with floating point values
 
-### Removind Padding
+### Removing Padding
 The last bytes are removed based on how much padding was added by the algorithm
+
+## Limitations
+So unfortunately the algorithm I've implemented to calculate the determinant of a matrix has a computational complexity of $n!$, whereas the algorithms of today are around $n^2.8$.  
+source: [Stack Overflow](https://stackoverflow.com/questions/27003062/fastest-algorithm-for-computing-the-determinant-of-a-matrix)  
+Anyways just dont use a password bigger than like uh, 8 characters or so... :3
+![2024-02-26_07-16-58](https://github.com/KianBahasadri/encryption-game/assets/101868619/d86f054a-bada-414e-9114-1853440493a3)  
+source: https://en.wikipedia.org/wiki/Computational_complexity_of_mathematical_operations

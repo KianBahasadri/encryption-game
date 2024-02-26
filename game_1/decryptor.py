@@ -19,27 +19,27 @@ crypto_utils.py
 """
 
 def main():
-  text_path = get_file_path(default='test_enc.txt')
+  PASSES = 0
+  text_path = get_file_path(default='encrypted_test.txt')
   text = get_text(text_path)
-  i = text.index('#')
-  padding = int.from_bytes(text[:i])
-  text = text[i+1:]
+  padding = text[0]
+  text = text[1:]
 
-  key = get_password(defualt='pass')
+  key = get_password(default='pass')
   key = stretch_key(key)
   key_mat = bytes_to_matrix(key)
-  inv_key_mat = mat_inv(key_mat)
   
   decrypted = bytes(0)
+  # iterate for each 32 byte block in text
+  for i in range(0, len(text), 32):
+    block = text[i:i+32]
+    text_mat = bytes_to_matrix(block, 2)
+    for i in range(PASSES):
+      text_mat = undo_mat_mul(key_mat, text_mat)
+    dec_mat = matrix_to_bytes(text_mat)
+    decrypted += dec_mat
   
-  # iterate for each 16 byte block in text
-  for i in range(0, len(text), 16):
-    block = text[i:i+16]
-    text_mat = bytes_to_matrix(block)
-    for i in range(0):
-      text_mat = mat_mul(inv_key_mat, text_mat)
-    decrypted += matrix_to_bytes(text_mat)
-  
+  decrypted = decrypted[:-padding]
   write_buffer_with_name(decrypted, text_path, 'decrypted')
 
 if __name__ == '__main__':

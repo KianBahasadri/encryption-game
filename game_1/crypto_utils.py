@@ -9,7 +9,7 @@ crypto_utils.py
 """
 
 def math_log2(x):
-  return x if x <= 2 else return math_log2(x/2)
+  return 1 if x <= 2 else 1 + math_log2(x/2)
 
 def get_passes(default):
   passes = input(f"How many passes? (Default: {default})\n--> ")
@@ -32,7 +32,7 @@ def get_file_path(default):
   return path
 
 def get_password(default):
-  key = input(f"4 character key (Default: {default})\n--> ").encode('utf-8')
+  key = input(f"Input key (Default: {default})\n--> ").encode('utf-8')
   key = key if key else default.encode('utf-8')
   return key
 

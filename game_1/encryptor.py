@@ -9,7 +9,7 @@ def main():
   key = get_password(default='pass')
   BLOCK_SIZE = len(key) ** 2
   key = stretch_key(key)
-  key_mat = bytes_to_matrix(key)
+  key_mat = bytes_to_matrix(key, 1)
   if mat_det(key_mat) == 0:
     print("invalid passphrase, determinant zero")
     exit()
@@ -23,7 +23,7 @@ def main():
   encrypted += PASSES.to_bytes()
   
   # see documentation for explanation
-  byte_size = ceil((math_log2(255**(PASSES+1))*len(key)**PASSES)/8)
+  byte_size = (math_log2(255**(PASSES+1)*len(key)**PASSES))//8
 
   ### PERFORMING ENCRYPTION ###
   for i in range(0, len(text), BLOCK_SIZE):

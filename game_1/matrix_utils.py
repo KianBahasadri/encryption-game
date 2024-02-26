@@ -16,11 +16,11 @@ def bytes_to_matrix(_bytes, size):
   always expect size of _bytes to be a perfect square * size
   matrix will be of size n*n
   """
-  n = (len(_bytes) // size) ** 0.5
+  n = int((len(_bytes) // size) ** 0.5)
   matrix = [[0]*n for _ in range(n)]
-  for i in range(0, n*size, size):
-    for j in range(0, n*size, size):
-      index = i*n*size + j*size
+  for i in range(0, n):
+    for j in range(0, n):
+      index = i*size*n + j*size
       val = int.from_bytes(_bytes[index:index+size])
       matrix[i][j] = val
   return matrix

@@ -6,7 +6,7 @@ def main():
   ### TAKING INPUTS ###
   key = get_password(default='pass')
   key = stretch_key(key)
-  key_mat = bytes_to_matrix(key)
+  key_mat = bytes_to_matrix(key, 1)
   
   text_path = get_file_path(default='encrypted_test.txt')
   text = get_text(text_path)
@@ -17,8 +17,8 @@ def main():
   decrypted = bytes(0)
 
   # see documentation for explanation
-  byte_size = ceil((math_log2(255**(PASSES+1))*len(key)**PASSES)/8)
-  BLOCK_SIZE = len(key)**2 * byte_size
+  byte_size = (math_log2(255**(PASSES+1)*len(key)**PASSES))//8
+  BLOCK_SIZE = len(key) * byte_size
 
   #### PERFORMING DECRYPTION ###
   for i in range(0, len(text), BLOCK_SIZE):

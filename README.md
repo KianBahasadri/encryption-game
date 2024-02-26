@@ -6,7 +6,7 @@ a game i made up that involves hella math and algorithms
 how to play:
 1. we both come up with our own encryption algorithm (no libraries allowed)
 2. we encrypt 1 MiB of plain English with a 32 bit password
-3. we swap the python code and the encrypted data
+3. we swap the code and the encrypted data
 4. whoever gets the most points within 1 week wins, if its a tie, you play another round
 
 scoring:

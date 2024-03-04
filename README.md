@@ -39,9 +39,8 @@ removes all non-alphabetic characters from a file, preserving whitespace. This c
 please make suggestions on how I could improve this game. Thanks
 
 
-
-# Game 1
-In the first game, I decided to make an encryption algorithm that uses matrix multiplication to encrypt data, and multiplication by an inverse matrix to decrypt data.
+# Algorithm 1
+For my first algorithm, I decided to make an encryption algorithm that uses matrix multiplication to encrypt data, and multiplication by an inverse matrix to decrypt data.
 Here is how a file is encrypted, in GREAT DETAIL!!!
 ## Encryption
 ### Inputs
